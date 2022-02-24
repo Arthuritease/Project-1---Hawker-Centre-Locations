@@ -3,6 +3,7 @@ let singapore = [1.35, 103.83];
 let map = L.map("map").setView(singapore, 12);
 let apiKey =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}";
+
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
