@@ -22,6 +22,8 @@ let mainMarker = L.marker(mainMarkerPosition);
 mainMarker.bindPopup("<p>This should be the center of Singapore!</p>");
 mainMarker.addTo(map);
 document.addEventListener("DOMContentLoaded", async function () {
+  {
+  }
   let locationInfo = await axios.get("location.json");
   // let lat = locationInfo.data[0]["Y"];
   // let lng = locationInfo.data[0]["X"];
@@ -29,12 +31,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   // let hawkerMarkerPosition = [lat, lng];
   // let hawkerMarker = L.marker(hawkerMarkerPosition);
   // hawkerMarker.addTo(map);
+
   for (let eachHawkerLocation of locationInfo.data) {
     let lat = eachHawkerLocation["Y"];
     let lng = eachHawkerLocation["X"];
+    let displayName = eachHawkerLocation["Name"];
+    let hawkerImage = eachHawkerLocation["PHOTOURL"];
     // console.log(lat, lng);
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
+    hawkerMarker.bindPopup(displayName + eachHawkerLocation["PHOTOURL"]);
     hawkerMarker.addTo(map);
   }
 });
