@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // console.log(lat, lng);
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
-    hawkerMarker.bindPopup(displayName + eachHawkerLocation["PHOTOURL"]);
+    hawkerMarker.bindPopup(displayName + hawkerImage);
     hawkerMarker.addTo(map);
   }
 });
