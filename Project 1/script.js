@@ -51,11 +51,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     // let westHawkers = eachHawkerLocation["X"] < westCluster;
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
+    let hawkerCluster = L.markerClusterGroup();
+    hawkerCluster.addLayer(hawkerMarker);
+    map.addLayer(hawkerCluster);
+
     // console.log(hawkerMarker);
-    hawkerMarker.bindPopup(
-      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
-    );
-    hawkerMarker.addTo(map);
+    // hawkerMarker.bindPopup(
+    //   `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+    // );
+    // hawkerMarker.addTo(map);
   }
 });
 document.querySelector("#north").addEventListener("click", function () {
