@@ -19,11 +19,10 @@ L.tileLayer(
 ).addTo(map);
 let mainMarkerPosition = [1.41, 103.83];
 let mainMarker = L.marker(mainMarkerPosition);
+
 mainMarker.bindPopup("<p>This should be the center of Singapore!</p>");
 mainMarker.addTo(map);
 document.addEventListener("DOMContentLoaded", async function () {
-  {
-  }
   let locationInfo = await axios.get("location.json");
   // let lat = locationInfo.data[0]["Y"];
   // let lng = locationInfo.data[0]["X"];
@@ -33,22 +32,52 @@ document.addEventListener("DOMContentLoaded", async function () {
   // hawkerMarker.addTo(map);
 
   for (let eachHawkerLocation of locationInfo.data) {
+    //console.log(locationInfo.data);
     let lat = eachHawkerLocation["Y"];
     let lng = eachHawkerLocation["X"];
     let displayName = eachHawkerLocation["Name"];
     let hawkerImage = eachHawkerLocation["PHOTOURL"];
     //targeting hawkers in the north
-    let northCluster = [1.41];
-    let northHawkers = eachHawkerLocation["Y]"] >= northCluster;
-    // targeting hawkers in the south
-    let southCluster = [1.31];
-    let southHawkers = eachHawkerLocation["Y"] < southCluster;
+    // let northCluster = [1.41];
+    // let northHawkers = eachHawkerLocation["Y]"] >= northCluster;
+    // // targeting hawkers in the south
+    // let southCluster = [1.31];
+    // let southHawkers = eachHawkerLocation["Y"] < southCluster;
+    // //targeting east cluser
+    // let eastCluster = [103.879];
+    // let eastHawkers = eachHawkerLocation["X"] > eastCluster;
+    // //tagreting west cluster
+    // let westCluster = [103.779];
+    // let westHawkers = eachHawkerLocation["X"] < westCluster;
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
-    console.log(hawkerMarker);
+    // console.log(hawkerMarker);
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
     hawkerMarker.addTo(map);
+  }
+});
+document.querySelector("#north").addEventListener("click", function () {
+  if (north.checked == true) {
+    alert("dont click me");
+  }
+});
+
+document.querySelector("#south").addEventListener("click", function () {
+  if (south.checked == true) {
+    alert("dont click me too");
+  }
+});
+
+document.querySelector("#east").addEventListener("click", function () {
+  if (east.checked == true) {
+    alert("dont la");
+  }
+});
+
+document.querySelector("#west").addEventListener("click", function () {
+  if (west.checked == true) {
+    alert("dont please");
   }
 });
