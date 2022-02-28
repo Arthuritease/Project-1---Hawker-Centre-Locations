@@ -17,7 +17,7 @@ L.tileLayer(
       "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", //demo access token
   }
 ).addTo(map);
-let mainMarkerPosition = [1.35, 103.83];
+let mainMarkerPosition = [1.41, 103.83];
 let mainMarker = L.marker(mainMarkerPosition);
 mainMarker.bindPopup("<p>This should be the center of Singapore!</p>");
 mainMarker.addTo(map);
@@ -37,8 +37,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     let lng = eachHawkerLocation["X"];
     let displayName = eachHawkerLocation["Name"];
     let hawkerImage = eachHawkerLocation["PHOTOURL"];
-    console.log(hawkerImage);
-    // console.log(lat, lng);
+    //targeting hawkers in the north
+    let northCluster = [1.41];
+    let northHawkers = eachHawkerLocation["Y]"] >= northCluster;
+    // targeting hawkers in the south
+    let southCluster = [1.31];
+    let southHawkers = eachHawkerLocation["Y"] < southCluster;
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
     console.log(hawkerMarker);
