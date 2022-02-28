@@ -52,14 +52,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
     let hawkerCluster = L.markerClusterGroup();
-    hawkerCluster.addLayer(hawkerMarker);
-    map.addLayer(hawkerCluster);
+    // for (let i = 0; i < 100; i++) {
+    L.marker(hawkerMarkerPosition).addTo(hawkerCluster);
+    hawkerMarker.addTo(map);
+    // hawkerCluster.addTo(map);
 
-    // console.log(hawkerMarker);
-    // hawkerMarker.bindPopup(
-    //   `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
-    // );
-    // hawkerMarker.addTo(map);
+    hawkerMarker.bindPopup(
+      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+    );
   }
 });
 document.querySelector("#north").addEventListener("click", function () {
