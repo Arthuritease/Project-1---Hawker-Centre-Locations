@@ -37,10 +37,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     let lng = eachHawkerLocation["X"];
     let displayName = eachHawkerLocation["Name"];
     let hawkerImage = eachHawkerLocation["PHOTOURL"];
+    console.log(hawkerImage);
     // console.log(lat, lng);
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
-    hawkerMarker.bindPopup(displayName + hawkerImage);
+    console.log(hawkerMarker);
+    hawkerMarker.bindPopup(
+      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+    );
     hawkerMarker.addTo(map);
   }
 });

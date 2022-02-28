@@ -6,3 +6,7 @@ h1 {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 50px;
 }
+.popUpImage {
+  height: 180px;
+  width: 180px;
+}
