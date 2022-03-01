@@ -62,11 +62,14 @@ window.addEventListener("DOMContentLoaded", async function () {
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
+    document.querySelector("#north").addEventListener("click", function () {
+      let northCluster = parseFloat(1.41);
+      let northHawkers = parseFloat(eachHawkerLocation["Y"]) > northCluster;
+    });
   }
   hawkerCluster.addTo(map);
 });
-// for (let eachHawkerLocation of locationInfo.data) {
-// }
+
 // document.querySelector("#north").addEventListener("click", function () {
 //   if (north.checked == true) {
 //     alert("dont click me");
