@@ -22,7 +22,7 @@ let mainMarker = L.marker(mainMarkerPosition);
 
 mainMarker.bindPopup("<p>This should be the center of Singapore!</p>");
 mainMarker.addTo(map);
-document.addEventListener("DOMContentLoaded", async function () {
+window.addEventListener("DOMContentLoaded", async function () {
   let locationInfo = await axios.get("location.json");
   // let lat = locationInfo.data[0]["Y"];
   // let lng = locationInfo.data[0]["X"];
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // let hawkerMarkerPosition = [lat, lng];
   // let hawkerMarker = L.marker(hawkerMarkerPosition);
   // hawkerMarker.addTo(map);
+  let hawkerCluster = L.markerClusterGroup();
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
@@ -51,16 +52,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     // let westHawkers = eachHawkerLocation["X"] < westCluster;
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition);
-    let hawkerCluster = L.markerClusterGroup();
+    // let hawkerCluster = L.markerClusterGroup();
     // for (let i = 0; i < 100; i++) {
-    L.marker(hawkerMarkerPosition).addTo(hawkerCluster);
-    hawkerMarker.addTo(map);
+    hawkerMarker.addTo(hawkerCluster);
+    // hawkerMarker.addTo(map); this is already in cluster
     // hawkerCluster.addTo(map);
 
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
   }
+  hawkerCluster.addTo(map);
 });
 document.querySelector("#north").addEventListener("click", function () {
   if (north.checked == true) {
