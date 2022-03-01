@@ -17,13 +17,14 @@ L.tileLayer(
       "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", //demo access token
   }
 ).addTo(map);
-let mainMarkerPosition = [1.41, 103.83];
+let mainMarkerPosition = [1.35, 103.83];
 let mainMarker = L.marker(mainMarkerPosition);
-
-mainMarker.bindPopup("<p>This should be the center of Singapore!</p>");
+let locationInfo = {};
+mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
 mainMarker.addTo(map);
 window.addEventListener("DOMContentLoaded", async function () {
-  let locationInfo = await axios.get("location.json");
+  locationInfo = await axios.get("location.json");
+  console.log(typeof locationInfo);
   // let lat = locationInfo.data[0]["Y"];
   // let lng = locationInfo.data[0]["X"];
   // // console.log(lat, lng);
@@ -64,26 +65,28 @@ window.addEventListener("DOMContentLoaded", async function () {
   }
   hawkerCluster.addTo(map);
 });
-document.querySelector("#north").addEventListener("click", function () {
-  if (north.checked == true) {
-    alert("dont click me");
-  }
-});
+// for (let eachHawkerLocation of locationInfo.data) {
+// }
+// document.querySelector("#north").addEventListener("click", function () {
+//   if (north.checked == true) {
+//     alert("dont click me");
+//   }
+// });
 
-document.querySelector("#south").addEventListener("click", function () {
-  if (south.checked == true) {
-    alert("dont click me too");
-  }
-});
+// document.querySelector("#south").addEventListener("click", function () {
+//   if (south.checked == true) {
+//     alert("dont click me too");
+//   }
+// });
 
-document.querySelector("#east").addEventListener("click", function () {
-  if (east.checked == true) {
-    alert("dont la");
-  }
-});
+// document.querySelector("#east").addEventListener("click", function () {
+//   if (east.checked == true) {
+//     alert("dont la");
+//   }
+// });
 
-document.querySelector("#west").addEventListener("click", function () {
-  if (west.checked == true) {
-    alert("dont please");
-  }
-});
+// document.querySelector("#west").addEventListener("click", function () {
+//   if (west.checked == true) {
+//     alert("dont please");
+//   }
+// });
