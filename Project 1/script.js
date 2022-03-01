@@ -17,14 +17,26 @@ L.tileLayer(
       "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", //demo access token
   }
 ).addTo(map);
-let mainMarkerPosition = [1.35, 103.83];
-let mainMarker = L.marker(mainMarkerPosition);
-let locationInfo = {};
-mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
-mainMarker.addTo(map);
+// let mainMarkerPosition = [1.35, 103.83];
+// let mainMarker = L.marker(mainMarkerPosition);
+// let locationInfo = {};
+// mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
+// mainMarker.addTo(map);
+navigator.geolocation.getCurrentPosition((position) => {
+  // Leaflet passes the latlng in
+  const {
+    coords: { latitude, longitude },
+  } = position;
+  var marker = new L.marker([latitude, longitude], {
+    draggable: true,
+    autoPan: true,
+  })
+    .addTo(map)
+    .bindPopup("<h3>You're here!!</h3>");
+});
 window.addEventListener("DOMContentLoaded", async function () {
   locationInfo = await axios.get("location.json");
-  console.log(typeof locationInfo);
+
   // let lat = locationInfo.data[0]["Y"];
   // let lng = locationInfo.data[0]["X"];
   // // console.log(lat, lng);
@@ -62,13 +74,15 @@ window.addEventListener("DOMContentLoaded", async function () {
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
-    document.querySelector("#north").addEventListener("click", function () {
-      let northCluster = parseFloat(1.41);
-      let northHawkers = parseFloat(eachHawkerLocation["Y"]) > northCluster;
-    });
+    // document.querySelector("#north").addEventListener("click", function () {
+    //   let northCluster = parseFloat(1.41);
+    //   let northHawkers = parseFloat(eachHawkerLocation["Y"]) > northCluster;
+    // });
   }
   hawkerCluster.addTo(map);
 });
+let northCluster = 1.41;
+console.log(typeof northCluster);
 
 // document.querySelector("#north").addEventListener("click", function () {
 //   if (north.checked == true) {
