@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // let hawkerCluster = L.markerClusterGroup();
     // for (let i = 0; i < 100; i++) {
     hawkerMarker.addTo(hawkerCluster);
-    // hawkerMarker.addTo(map); this is already in cluster
+    // hawkerMarker.addTo(map); this is not needed as marker info already in cluster
     // hawkerCluster.addTo(map);
 
     hawkerMarker.bindPopup(
