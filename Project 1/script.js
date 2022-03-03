@@ -1,4 +1,4 @@
-alert("Ready for food?");
+// alert("Ready for food?");
 let singapore = [1.35, 103.83];
 let map = L.map("map").setView(singapore, 12);
 let apiKey =
@@ -44,6 +44,11 @@ window.addEventListener("DOMContentLoaded", async function () {
   // let hawkerMarker = L.marker(hawkerMarkerPosition);
   // hawkerMarker.addTo(map);
   let hawkerCluster = L.markerClusterGroup();
+  let northHawker = [];
+  let southHawker = [];
+  let eastHawker = [];
+  let westHawker = [];
+  let centralHawker = [];
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
@@ -74,16 +79,33 @@ window.addEventListener("DOMContentLoaded", async function () {
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
-    // document.querySelector("#north").addEventListener("click", function () {
-    //   let northCluster = parseFloat(1.41);
-    //   let northHawkers = parseFloat(eachHawkerLocation["Y"]) > northCluster;
-    // });
+    if (eachHawkerLocation["Y"] > 1.41) {
+      northHawker.push(eachHawkerLocation);
+    } else if (eachHawkerLocation["Y"] < 1.306) {
+      southHawker.push(eachHawkerLocation);
+    } else if (eachHawkerLocation["X"] > 103.87) {
+      eastHawker.push(eachHawkerLocation);
+    } else if (eachHawkerLocation["X"] < 103.8) {
+      westHawker.push(eachHawkerLocation);
+    } else {
+      centralHawker.push(eachHawkerLocation);
+    }
   }
+  // console.log(northHawker);
+  // console.log(southHawker);
+  // console.log(eastHawker);
+  // console.log(westHawker);
+  console.log(centralHawker);
   hawkerCluster.addTo(map);
 });
-let northCluster = 1.41;
-console.log(typeof northCluster);
 
+// hawkerCluster.addTo(map);
+
+// let northCluster = 1.41;
+// console.log(typeof northCluster);
+
+//form control codes:
+// let name = document.addEventListener("click");
 // document.querySelector("#north").addEventListener("click", function () {
 //   if (north.checked == true) {
 //     alert("dont click me");
@@ -107,3 +129,13 @@ console.log(typeof northCluster);
 //     alert("dont please");
 //   }
 // });
+// document.querySelector("#north").addEventListener("click", function () {
+//   let northCluster = 1.41;
+
+//   // filter data to find north marker
+//   let northLocation = locationInfo.data.filter(function (eachLocation) {
+//     if (eachLocation["Y"] > northCluster) {
+//       return northLocation;
+//     }
+//     console.log(northLocation);
+//   }}
