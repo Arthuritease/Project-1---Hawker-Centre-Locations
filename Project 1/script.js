@@ -45,6 +45,11 @@ window.addEventListener("DOMContentLoaded", async function () {
   // hawkerMarker.addTo(map);
   let hawkerCluster = L.markerClusterGroup();
   let centralCluster = L.markerClusterGroup();
+  let northCluster = L.markerClusterGroup();
+  let southCluster = L.markerClusterGroup();
+  let eastCluster = L.markerClusterGroup();
+  let westCluster = L.markerClusterGroup();
+
   var northHawker = [];
   var southHawker = [];
   var eastHawker = [];
@@ -81,38 +86,55 @@ window.addEventListener("DOMContentLoaded", async function () {
       `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
     if (eachHawkerLocation["Y"] > 1.41) {
-      northHawker.push(eachHawkerLocation);
+      northCluster.addLayer(hawkerMarker);
     } else if (eachHawkerLocation["Y"] < 1.306) {
-      southHawker.push(eachHawkerLocation);
+      southCluster.addLayer(hawkerMarker);
     } else if (eachHawkerLocation["X"] > 103.87) {
-      eastHawker.push(eachHawkerLocation);
+      eastCluster.addLayer(hawkerMarker);
     } else if (eachHawkerLocation["X"] < 103.8) {
-      westHawker.push(eachHawkerLocation);
+      westCluster.addLayer(hawkerMarker);
     } else {
-      centralHawker.push(eachHawkerLocation);
+      centralCluster.addLayer(hawkerMarker);
     }
   }
+  northCluster.addTo(map);
+  southCluster.addTo(map);
+  eastCluster.addTo(map);
+  westCluster.addTo(map);
+  centralCluster.addTo(map);
+
+  let overlays = {
+    North: northCluster,
+    South: southCluster,
+    East: eastCluster,
+    West: westCluster,
+    Central: centralCluster,
+  };
+
+  L.control.layers({}, overlays).addTo(map);
+
   // console.log(northHawker);
+
   // console.log(southHawker);
   // console.log(eastHawker);
   // console.log(westHawker);
-  for (let eachCentral of centralHawker) {
-    let lat = eachCentral["Y"];
-    // console.log(eachCentral["Y"]);
-    let lng = eachCentral["X"];
-    // console.log(lat, lng);
-    let displayName = eachCentral["Name"];
-    let hawkerImage = eachCentral["PHOTOURL"];
-    let centralPos = [lat, lng];
-    let centralMarker = L.marker(centralPos);
-    centralMarker.addTo(centralCluster);
-    centralMarker.bindPopup(
-      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
-    );
-    console.log(displayName);
-  }
-  centralCluster.addTo(map);
-  // hawkerCluster.addTo(map);
+  // for (let eachCentral of centralHawker) {
+  //   let lat = eachCentral["Y"];
+  //   // console.log(eachCentral["Y"]);
+  //   let lng = eachCentral["X"];
+  //   // console.log(lat, lng);
+  //   let displayName = eachCentral["Name"];
+  //   let hawkerImage = eachCentral["PHOTOURL"];
+  //   let centralPos = [lat, lng];
+  //   let centralMarker = L.marker(centralPos);
+  //   centralMarker.addTo(centralCluster);
+  //   centralMarker.bindPopup(
+  //     `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+  //   );
+  //   console.log(displayName);
+  // }
+  // centralCluster.addTo(map);
+  // // hawkerCluster.addTo(map);
 });
 
 // hawkerCluster.addTo(map);
