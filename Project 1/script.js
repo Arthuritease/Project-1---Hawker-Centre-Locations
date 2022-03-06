@@ -44,11 +44,12 @@ window.addEventListener("DOMContentLoaded", async function () {
   // let hawkerMarker = L.marker(hawkerMarkerPosition);
   // hawkerMarker.addTo(map);
   let hawkerCluster = L.markerClusterGroup();
-  let northHawker = [];
-  let southHawker = [];
-  let eastHawker = [];
-  let westHawker = [];
-  let centralHawker = [];
+  let centralCluster = L.markerClusterGroup();
+  var northHawker = [];
+  var southHawker = [];
+  var eastHawker = [];
+  var westHawker = [];
+  var centralHawker = [];
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
@@ -95,8 +96,23 @@ window.addEventListener("DOMContentLoaded", async function () {
   // console.log(southHawker);
   // console.log(eastHawker);
   // console.log(westHawker);
-  console.log(centralHawker);
-  hawkerCluster.addTo(map);
+  for (let eachCentral of centralHawker) {
+    let lat = eachCentral["Y"];
+    // console.log(eachCentral["Y"]);
+    let lng = eachCentral["X"];
+    // console.log(lat, lng);
+    let displayName = eachCentral["Name"];
+    let hawkerImage = eachCentral["PHOTOURL"];
+    let centralPos = [lat, lng];
+    let centralMarker = L.marker(centralPos);
+    centralMarker.addTo(centralCluster);
+    centralMarker.bindPopup(
+      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+    );
+    console.log(displayName);
+  }
+  centralCluster.addTo(map);
+  // hawkerCluster.addTo(map);
 });
 
 // hawkerCluster.addTo(map);
