@@ -29,7 +29,6 @@ navigator.geolocation.getCurrentPosition((position) => {
     coords: { latitude, longitude },
   } = position;
   var marker = new L.marker([latitude, longitude], {
-    icon: greenIcon,
     draggable: true,
     autoPan: true,
   })
@@ -145,8 +144,8 @@ document.querySelector("#button").addEventListener("click", function () {
     alert(
       "Thank you for contacting us. We will contact you shortly to hear your thoughts!"
     );
+    console.log(name, email, number);
   }
-  console.log(name, email, number);
 });
 
 // hawkerCluster.addTo(map);
