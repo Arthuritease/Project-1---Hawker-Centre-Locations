@@ -112,29 +112,15 @@ window.addEventListener("DOMContentLoaded", async function () {
   };
 
   L.control.layers({}, overlays).addTo(map);
-
-  // console.log(northHawker);
-
-  // console.log(southHawker);
-  // console.log(eastHawker);
-  // console.log(westHawker);
-  // for (let eachCentral of centralHawker) {
-  //   let lat = eachCentral["Y"];
-  //   // console.log(eachCentral["Y"]);
-  //   let lng = eachCentral["X"];
-  //   // console.log(lat, lng);
-  //   let displayName = eachCentral["Name"];
-  //   let hawkerImage = eachCentral["PHOTOURL"];
-  //   let centralPos = [lat, lng];
-  //   let centralMarker = L.marker(centralPos);
-  //   centralMarker.addTo(centralCluster);
-  //   centralMarker.bindPopup(
-  //     `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
-  //   );
-  //   console.log(displayName);
-  // }
-  // centralCluster.addTo(map);
-  // // hawkerCluster.addTo(map);
+});
+document.querySelector("#name").addEventListener("click", function () {
+  document.querySelector("#name").value = " ";
+});
+document.querySelector("#email").addEventListener("click", function () {
+  document.querySelector("#email").value = " ";
+});
+document.querySelector("#number").addEventListener("click", function () {
+  document.querySelector("#number").value = " ";
 });
 
 // hawkerCluster.addTo(map);
