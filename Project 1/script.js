@@ -22,12 +22,14 @@ L.tileLayer(
 // let locationInfo = {};
 // mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
 // mainMarker.addTo(map);
+
 navigator.geolocation.getCurrentPosition((position) => {
   // Leaflet passes the latlng in
   const {
     coords: { latitude, longitude },
   } = position;
   var marker = new L.marker([latitude, longitude], {
+    icon: greenIcon,
     draggable: true,
     autoPan: true,
   })
@@ -113,6 +115,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 
   L.control.layers({}, overlays).addTo(map);
 });
+
+//form control codes
 document.querySelector("#name").addEventListener("click", function () {
   document.querySelector("#name").value = " ";
 });
@@ -121,6 +125,28 @@ document.querySelector("#email").addEventListener("click", function () {
 });
 document.querySelector("#number").addEventListener("click", function () {
   document.querySelector("#number").value = " ";
+});
+document.querySelector("#button").addEventListener("click", function () {
+  let name = document.querySelector("#name").value;
+  let email = document.querySelector("#email").value;
+  let number = document.querySelector("#number").value;
+  //assiging flags
+  if (
+    name.length < 2 ||
+    number.length < 8 ||
+    !(number.includes("9") || number.includes("8")) ||
+    !(email.includes(".") && email.includes("@"))
+  ) {
+    alert(`Please ensure that: 
+    Email address is valid
+    Phone number is 8 characters
+    Name is more than 2 characters`);
+  } else {
+    alert(
+      "Thank you for contacting us. We will contact you shortly to hear your thoughts!"
+    );
+  }
+  console.log(name, email, number);
 });
 
 // hawkerCluster.addTo(map);
