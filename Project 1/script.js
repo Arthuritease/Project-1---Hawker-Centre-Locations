@@ -44,6 +44,14 @@ window.addEventListener("DOMContentLoaded", async function () {
   // let hawkerMarkerPosition = [lat, lng];
   // let hawkerMarker = L.marker(hawkerMarkerPosition);
   // hawkerMarker.addTo(map);
+  var LeafIcon = L.Icon.extend({
+    options: {
+      iconSize: [15, 30],
+    },
+  });
+  var customIcon = new LeafIcon({
+    iconUrl: "gate.png",
+  });
   let hawkerCluster = L.markerClusterGroup();
   let centralCluster = L.markerClusterGroup();
   let northCluster = L.markerClusterGroup();
@@ -76,7 +84,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // let westCluster = [103.779];
     // let westHawkers = eachHawkerLocation["X"] < westCluster;
     let hawkerMarkerPosition = [lat, lng];
-    let hawkerMarker = L.marker(hawkerMarkerPosition);
+    let hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
     // let hawkerCluster = L.markerClusterGroup();
     // for (let i = 0; i < 100; i++) {
     hawkerMarker.addTo(hawkerCluster);
