@@ -17,11 +17,11 @@ L.tileLayer(
       "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", //demo access token
   }
 ).addTo(map);
-// let mainMarkerPosition = [1.35, 103.83];
-// let mainMarker = L.marker(mainMarkerPosition);
-// let locationInfo = {};
-// mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
-// mainMarker.addTo(map);
+L.Routing.control({
+  waypoints: [L.latLng(1.307, 103.8812), L.latLng(1.2863, 103.8045)],
+  routeWhileDragging: true,
+}).addTo(map);
+
 navigator.geolocation.getCurrentPosition((position) => {
   var userIcon = L.Icon.extend({
     options: {
@@ -120,21 +120,26 @@ document.querySelector("#email").addEventListener("click", function () {
 document.querySelector("#number").addEventListener("click", function () {
   document.querySelector("#number").value = " ";
 });
+
 document.querySelector("#button").addEventListener("click", function () {
   let name = document.querySelector("#name").value;
   let email = document.querySelector("#email").value;
   let number = document.querySelector("#number").value;
+  let emailChecked = document.getElementById("contactE");
+
   //assiging flags
   if (
     name.length < 2 ||
     number.length < 8 ||
     !(number.includes("9") || number.includes("8")) ||
-    !(email.includes(".") && email.includes("@"))
+    !(email.includes(".") && email.includes("@")) ||
+    emailChecked.checked == false
   ) {
     alert(`Please ensure that: 
     Email address is valid
     Phone number is 8 characters
-    Name is more than 2 characters`);
+    Name is more than 2 characters
+    You have selected at least one way for us to contact you`);
   } else {
     alert(
       "Thank you for reaching out! One of our will contact you shortly to hear your thoughts!"
