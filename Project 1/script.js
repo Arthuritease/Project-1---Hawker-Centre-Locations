@@ -22,13 +22,21 @@ L.tileLayer(
 // let locationInfo = {};
 // mainMarker.bindPopup("<h1>This should be the center of Singapore!</h1>");
 // mainMarker.addTo(map);
-
 navigator.geolocation.getCurrentPosition((position) => {
+  var userIcon = L.Icon.extend({
+    options: {
+      iconSize: [30, 35],
+    },
+  });
+  var customMe = new userIcon({
+    iconUrl: "user.png",
+  });
   // Leaflet passes the latlng in
   const {
     coords: { latitude, longitude },
   } = position;
   var marker = new L.marker([latitude, longitude], {
+    icon: customMe,
     draggable: true,
     autoPan: true,
   })
@@ -38,20 +46,15 @@ navigator.geolocation.getCurrentPosition((position) => {
 window.addEventListener("DOMContentLoaded", async function () {
   locationInfo = await axios.get("location.json");
 
-  // let lat = locationInfo.data[0]["Y"];
-  // let lng = locationInfo.data[0]["X"];
-  // // console.log(lat, lng);
-  // let hawkerMarkerPosition = [lat, lng];
-  // let hawkerMarker = L.marker(hawkerMarkerPosition);
-  // hawkerMarker.addTo(map);
   var LeafIcon = L.Icon.extend({
     options: {
-      iconSize: [15, 30],
+      iconSize: [40, 50],
     },
   });
   var customIcon = new LeafIcon({
-    iconUrl: "gate.png",
+    iconUrl: "food-stall.png",
   });
+
   let hawkerCluster = L.markerClusterGroup();
   let centralCluster = L.markerClusterGroup();
   let northCluster = L.markerClusterGroup();
@@ -59,30 +62,14 @@ window.addEventListener("DOMContentLoaded", async function () {
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
 
-  var northHawker = [];
-  var southHawker = [];
-  var eastHawker = [];
-  var westHawker = [];
-  var centralHawker = [];
-
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
     let lat = eachHawkerLocation["Y"];
     let lng = eachHawkerLocation["X"];
     let displayName = eachHawkerLocation["Name"];
     let hawkerImage = eachHawkerLocation["PHOTOURL"];
-    //targeting hawkers in the north
-    // let northCluster = [1.41];
-    // let northHawkers = eachHawkerLocation["Y]"] >= northCluster;
-    // // targeting hawkers in the south
-    // let southCluster = [1.31];
-    // let southHawkers = eachHawkerLocation["Y"] < southCluster;
-    // //targeting east cluser
-    // let eastCluster = [103.879];
-    // let eastHawkers = eachHawkerLocation["X"] > eastCluster;
-    // //tagreting west cluster
-    // let westCluster = [103.779];
-    // let westHawkers = eachHawkerLocation["X"] < westCluster;
+    let hawkerAdd = eachHawkerLocation["ADDRESS_MYENV"];
+
     let hawkerMarkerPosition = [lat, lng];
     let hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
     // let hawkerCluster = L.markerClusterGroup();
@@ -92,7 +79,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     // hawkerCluster.addTo(map);
 
     hawkerMarker.bindPopup(
-      `<div class = "">${displayName}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
+      `<div class = "">${displayName}</br> ${hawkerAdd}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
     if (eachHawkerLocation["Y"] > 1.41) {
       northCluster.addLayer(hawkerMarker);
@@ -150,7 +137,7 @@ document.querySelector("#button").addEventListener("click", function () {
     Name is more than 2 characters`);
   } else {
     alert(
-      "Thank you for contacting us. We will contact you shortly to hear your thoughts!"
+      "Thank you for reaching out! One of our will contact you shortly to hear your thoughts!"
     );
     console.log(name, email, number);
   }
