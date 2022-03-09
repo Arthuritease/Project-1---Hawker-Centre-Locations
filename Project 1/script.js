@@ -126,6 +126,7 @@ document.querySelector("#button").addEventListener("click", function () {
   let email = document.querySelector("#email").value;
   let number = document.querySelector("#number").value;
   let emailChecked = document.getElementById("contactE");
+  let phoneChecked = document.getElementById("contactP");
 
   //assiging flags
   if (
