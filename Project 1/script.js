@@ -17,6 +17,7 @@ L.tileLayer(
       "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", //demo access token
   }
 ).addTo(map);
+
 L.Routing.control({
   waypoints: [L.latLng(1.307, 103.8812), L.latLng(1.2863, 103.8045)],
   routeWhileDragging: true,
@@ -37,8 +38,6 @@ navigator.geolocation.getCurrentPosition((position) => {
   } = position;
   var marker = new L.marker([latitude, longitude], {
     icon: customMe,
-    draggable: true,
-    autoPan: true,
   })
     .addTo(map)
     .bindPopup("<h3>You're here!!</h3>");
@@ -134,7 +133,7 @@ document.querySelector("#button").addEventListener("click", function () {
     number.length < 8 ||
     !(number.includes("9") || number.includes("8")) ||
     !(email.includes(".") && email.includes("@")) ||
-    emailChecked.checked == false
+    (emailChecked.checked == false && phoneChecked.checked == false)
   ) {
     alert(`Please ensure that: 
     Email address is valid
