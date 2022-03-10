@@ -36,6 +36,29 @@ window.addEventListener("DOMContentLoaded", async function () {
   let southCluster = L.markerClusterGroup();
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
+  navigator.geolocation.getCurrentPosition((position) => {
+    let currLatLng = L.latLng(
+      position.coords.latitude,
+      position.coords.longitude
+    );
+    var userIcon = L.Icon.extend({
+      options: {
+        iconSize: [30, 35],
+      },
+    });
+    var customMe = new userIcon({
+      iconUrl: "user.png",
+    });
+    // Leaflet passes the latlng in
+    const {
+      coords: { latitude, longitude },
+    } = position;
+    var marker = new L.marker([latitude, longitude], {
+      icon: customMe,
+    })
+      .addTo(map)
+      .bindPopup("<h3>You're here!!</h3>");
+  });
 
   let routeLayer = null;
   let searchedRouteMarker = L.layerGroup();
@@ -70,7 +93,7 @@ window.addEventListener("DOMContentLoaded", async function () {
         icon: customMe,
       })
         .addTo(searchedRouteMarker)
-        .bindPopup("<h3>You're here!!</h3>");
+        .bindPopup("<h3>Still here!!</h3>");
     });
   }
   document
