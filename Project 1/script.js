@@ -18,35 +18,6 @@ L.tileLayer(
   }
 ).addTo(map);
 
-navigator.geolocation.getCurrentPosition((position) => {
-  let currLatLng = L.latLng(
-    position.coords.latitude,
-    position.coords.longitude
-  );
-  L.Routing.control({
-    waypoints: [currLatLng, L.latLng(1.2863, 103.8045)],
-    routeWhileDragging: true,
-    collapsible: true,
-  }).addTo(map);
-
-  var userIcon = L.Icon.extend({
-    options: {
-      iconSize: [30, 35],
-    },
-  });
-  var customMe = new userIcon({
-    iconUrl: "user.png",
-  });
-  // Leaflet passes the latlng in
-  const {
-    coords: { latitude, longitude },
-  } = position;
-  var marker = new L.marker([latitude, longitude], {
-    icon: customMe,
-  })
-    .addTo(map)
-    .bindPopup("<h3>You're here!!</h3>");
-});
 window.addEventListener("DOMContentLoaded", async function () {
   locationInfo = await axios.get("location.json");
 
@@ -65,6 +36,74 @@ window.addEventListener("DOMContentLoaded", async function () {
   let southCluster = L.markerClusterGroup();
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
+
+  let routeLayer = null;
+  let searchedRouteMarker = L.layerGroup();
+  map.addLayer(searchedRouteMarker);
+  function userToSearch(searchLatLng) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      let currLatLng = L.latLng(
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      routeLayer = L.Routing.control({
+        waypoints: [currLatLng, L.latLng(searchLatLng)],
+        routeWhileDragging: true,
+        collapsible: true,
+      });
+      routeLayer.addTo(map);
+
+      var userIcon = L.Icon.extend({
+        options: {
+          iconSize: [30, 35],
+        },
+      });
+      var customMe = new userIcon({
+        iconUrl: "user.png",
+      });
+      // Leaflet passes the latlng in
+      const {
+        coords: { latitude, longitude },
+      } = position;
+      var marker = new L.marker([latitude, longitude], {
+        icon: customMe,
+      })
+        .addTo(searchedRouteMarker)
+        .bindPopup("<h3>You're here!!</h3>");
+    });
+  }
+  document
+    .querySelector("#searchButton")
+    .addEventListener("click", function () {
+      document.querySelector("#possibleHawkers").innerHTML = "";
+      let r = document.querySelector("#searchBar").value;
+      if (routeLayer != null) {
+        map.removeControl(routeLayer);
+        searchedRouteMarker.clearLayers();
+      }
+
+      for (let eachHawkerLocation of locationInfo.data) {
+        if (
+          eachHawkerLocation["Name"].toLowerCase().includes(r.toLowerCase())
+        ) {
+          // console.log(eachHawkerLocation["Name"]);
+          let hawkerNames = document.createElement("p");
+          hawkerNames.innerText = eachHawkerLocation["Name"];
+          document.querySelector("#possibleHawkers").appendChild(hawkerNames);
+          hawkerNames.addEventListener("click", function () {
+            if (routeLayer != null) {
+              map.removeControl(routeLayer);
+              searchedRouteMarker.clearLayers();
+            }
+            let lat = eachHawkerLocation["Y"];
+            let lng = eachHawkerLocation["X"];
+            let searchCoords = [lat, lng];
+            userToSearch(searchCoords);
+          });
+        }
+      }
+    });
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
@@ -96,6 +135,16 @@ window.addEventListener("DOMContentLoaded", async function () {
     } else {
       centralCluster.addLayer(hawkerMarker);
     }
+    // document
+    //   .querySelector("#searchButton")
+    //   .addEventListener("click", function () {
+    //     let r = document.querySelector("#searchBar").value;
+    //     if (
+    //       eachHawkerLocation["Name"].toLowerCase().includes(r.toLowerCase())
+    //     ) {
+    //       console.log(eachHawkerLocation["Name"]);
+    //     }
+    //   });
   }
   northCluster.addTo(map);
   southCluster.addTo(map);
@@ -113,7 +162,10 @@ window.addEventListener("DOMContentLoaded", async function () {
 
   L.control.layers({}, overlays).addTo(map);
 });
-
+// document.querySelector("#searchButton").addEventListener("click", function () {
+//   let r = document.querySelector("#searchBar").value;
+//   console.log(r);
+//});
 //form control codes
 document.querySelector("#name").addEventListener("click", function () {
   document.querySelector("#name").value = " ";
