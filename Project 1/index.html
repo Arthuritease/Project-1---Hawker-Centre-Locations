@@ -62,8 +62,8 @@
           aria-label="Slide 3"
         ></button>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
+      <div class="carousel-inner" data-pause="false">
+        <div class="carousel-item active" data-pause="false">
           <img src="LPS.jpeg" class="d-block w-100" alt="..." />
           <div class="carousel-caption d-none d-md-block">
             <h1 style="font-style: oblique">Lau Pat Sat</h1>
@@ -105,7 +105,9 @@
       </button>
     </div>
     <h1>Let's get Fed!</h1>
-    <div id="map"></div>
+    <section class="mapContainer"
+      <div id="map"></div>
+  </section>
 
     <div class="container">
       <h3>Connect with us:</h3>
@@ -162,9 +164,9 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script>
+    <!-- <script>
       $("[data-slide-to=0").trigger("click");
-    </script>
+    </script> -->
     <script
       src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="

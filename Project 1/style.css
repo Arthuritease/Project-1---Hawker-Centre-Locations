@@ -1,11 +1,17 @@
 #map {
   height: 900px;
-  width: 75%;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+#hawkerCarousel {
+  display: flex;
 }
 h1 {
   text-align: center;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 50px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .popUpImage {
   height: 180px;
@@ -19,6 +25,6 @@ body {
   flex-direction: column;
   float: left;
 }
-#hawkerCarousel {
-  display: flex;
+.carousel-item {
+  height: 100vh;
 }
