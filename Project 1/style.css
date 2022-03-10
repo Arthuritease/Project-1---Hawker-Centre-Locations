@@ -3,9 +3,11 @@
   margin-left: 32px;
   margin-right: 32px;
 }
-#hawkerCarousel {
-  display: flex;
-}
+/* #hawkerCarousel img {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+} */
 h1 {
   text-align: center;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
@@ -25,6 +27,6 @@ body {
   flex-direction: column;
   float: left;
 }
-.carousel-item {
+/* .carousel-item {
   height: 100vh;
-}
+} */

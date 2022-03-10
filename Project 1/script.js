@@ -18,12 +18,17 @@ L.tileLayer(
   }
 ).addTo(map);
 
-L.Routing.control({
-  waypoints: [L.latLng(1.307, 103.8812), L.latLng(1.2863, 103.8045)],
-  routeWhileDragging: true,
-}).addTo(map);
-
 navigator.geolocation.getCurrentPosition((position) => {
+  let currLatLng = L.latLng(
+    position.coords.latitude,
+    position.coords.longitude
+  );
+  L.Routing.control({
+    waypoints: [currLatLng, L.latLng(1.2863, 103.8045)],
+    routeWhileDragging: true,
+    collapsible: true,
+  }).addTo(map);
+
   var userIcon = L.Icon.extend({
     options: {
       iconSize: [30, 35],
@@ -60,28 +65,23 @@ window.addEventListener("DOMContentLoaded", async function () {
   let southCluster = L.markerClusterGroup();
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
-  let lat = "";
-  let lng = "";
-  let hawkerMarkerPosition = [lat, lng];
-  let hawkerMarker = L.marker(hawkerMarkerPosition);
-  let hawkerName = "";
-  let hawkerImage = "";
-  let hawkerAdd = "";
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
-    lat = eachHawkerLocation["Y"];
-    lng = eachHawkerLocation["X"];
+    let lat = eachHawkerLocation["Y"];
+    let lng = eachHawkerLocation["X"];
+    let displayName = eachHawkerLocation["Name"];
+    let hawkerImage = eachHawkerLocation["PHOTOURL"];
+    let hawkerAdd = eachHawkerLocation["ADDRESS_MYENV"];
 
-    hawkerMarkerPosition = [lat, lng];
-    hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
-    for (let eachHawkerLocation of locationInfo.data) {
-      displayName = eachHawkerLocation["Name"];
-      hawkerImage = eachHawkerLocation["PHOTOURL"];
-      hawkerAdd = eachHawkerLocation["ADDRESS_MYENV"];
-    }
-
+    let hawkerMarkerPosition = [lat, lng];
+    let hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
+    // let hawkerCluster = L.markerClusterGroup();
+    // for (let i = 0; i < 100; i++) {
     hawkerMarker.addTo(hawkerCluster);
+    // hawkerMarker.addTo(map); this is not needed as marker info already in cluster
+    // hawkerCluster.addTo(map);
+
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> ${hawkerAdd}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
