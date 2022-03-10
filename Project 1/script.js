@@ -60,23 +60,28 @@ window.addEventListener("DOMContentLoaded", async function () {
   let southCluster = L.markerClusterGroup();
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
+  let lat = "";
+  let lng = "";
+  let hawkerMarkerPosition = [lat, lng];
+  let hawkerMarker = L.marker(hawkerMarkerPosition);
+  let hawkerName = "";
+  let hawkerImage = "";
+  let hawkerAdd = "";
 
   for (let eachHawkerLocation of locationInfo.data) {
     //console.log(locationInfo.data);
-    let lat = eachHawkerLocation["Y"];
-    let lng = eachHawkerLocation["X"];
-    let displayName = eachHawkerLocation["Name"];
-    let hawkerImage = eachHawkerLocation["PHOTOURL"];
-    let hawkerAdd = eachHawkerLocation["ADDRESS_MYENV"];
+    lat = eachHawkerLocation["Y"];
+    lng = eachHawkerLocation["X"];
 
-    let hawkerMarkerPosition = [lat, lng];
-    let hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
-    // let hawkerCluster = L.markerClusterGroup();
-    // for (let i = 0; i < 100; i++) {
+    hawkerMarkerPosition = [lat, lng];
+    hawkerMarker = L.marker(hawkerMarkerPosition, { icon: customIcon });
+    for (let eachHawkerLocation of locationInfo.data) {
+      displayName = eachHawkerLocation["Name"];
+      hawkerImage = eachHawkerLocation["PHOTOURL"];
+      hawkerAdd = eachHawkerLocation["ADDRESS_MYENV"];
+    }
+
     hawkerMarker.addTo(hawkerCluster);
-    // hawkerMarker.addTo(map); this is not needed as marker info already in cluster
-    // hawkerCluster.addTo(map);
-
     hawkerMarker.bindPopup(
       `<div class = "">${displayName}</br> ${hawkerAdd}</br> <img class ="popUpImage" src='${hawkerImage}'/></div>`
     );
