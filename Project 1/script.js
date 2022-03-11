@@ -36,6 +36,7 @@ window.addEventListener("DOMContentLoaded", async function () {
   let southCluster = L.markerClusterGroup();
   let eastCluster = L.markerClusterGroup();
   let westCluster = L.markerClusterGroup();
+
   navigator.geolocation.getCurrentPosition((position) => {
     let currLatLng = L.latLng(
       position.coords.latitude,
@@ -77,15 +78,15 @@ window.addEventListener("DOMContentLoaded", async function () {
       });
       routeLayer.addTo(map);
 
-      var userIcon = L.Icon.extend({
-        options: {
-          iconSize: [30, 35],
-        },
-      });
-      var customMe = new userIcon({
-        iconUrl: "user.png",
-      });
-      // Leaflet passes the latlng in
+      // var userIcon = L.Icon.extend({
+      //   options: {
+      //     iconSize: [30, 35],
+      //   },
+      // });
+      // var customMe = new userIcon({
+      //   iconUrl: "user.png",
+      // });
+      // // Leaflet passes the latlng in
       const {
         coords: { latitude, longitude },
       } = position;
