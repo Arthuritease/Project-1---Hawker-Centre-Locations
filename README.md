@@ -67,7 +67,7 @@ This is a single page website that is split into different sections.
 - Search Bar
 - Contact form
 
-[![Parkade-Skeleton.png](https://i.postimg.cc/ZRkCr962/Parkade-Skeleton.png)](https://postimg.cc/wtVqzjfQ)
+[(https://i.postimg.cc/qqDQM3hC/Flowchart.jpg)](https://postimg.cc/Fkc0T1x9)
 
 ## Navigation design
 
@@ -117,7 +117,7 @@ Landing Page Carousel with Nav buttons
 
 # Skeleton
 
-[![Parkade-Skeleton-2.jpg](https://i.postimg.cc/mDG7TppP/Parkade-Skeleton-2.jpg)](https://postimg.cc/HJBr2zgm)
+[![Parkade-Skeleton-2.jpg](https://i.postimg.cc/HxxyWPQB/Wireframe.jpg)](https://postimg.cc/5Hh0ngKC)
 
 # Surface
 
