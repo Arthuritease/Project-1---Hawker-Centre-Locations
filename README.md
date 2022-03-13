@@ -61,7 +61,6 @@ The project is deployed by Netify and can be accessed via this link -https://opt
 This is a single page website that is split into different sections.
 
 - Landing page carousel
-- Navbar
 - Map
 - Region filter
 - Search Bar
